@@ -6,9 +6,9 @@
 
 // Template ID, Device Name and Auth Token are provided by the Blynk.Cloud
 // See the Device Info tab, or Template settings
-#define BLYNK_TEMPLATE_ID "TMPLXKtXG3Km"
-#define BLYNK_DEVICE_NAME "Quickstart Template"
-#define BLYNK_AUTH_TOKEN "_GGwAlEIJEWCD9TCTyPd1SupGFJfkS7I"
+#define BLYNK_TEMPLATE_ID "template id"
+#define BLYNK_DEVICE_NAME "device name"
+#define BLYNK_AUTH_TOKEN "_add your token"
 
 // Comment this out to disable prints and save space
 #define BLYNK_PRINT Serial
@@ -22,8 +22,8 @@ char auth[] = BLYNK_AUTH_TOKEN;
 String s;
 // Your WiFi credentials.
  //Set password to "" for open networks.
-char ssid[] = "narzo 50A";
-char pass[] = "rimli123";
+char ssid[] = "add your  wifi name";
+char pass[] = "add your wifi password";
 
 BlynkTimer timer;
 #include "BLEDevice.h"
@@ -175,13 +175,7 @@ void setup()
   pBLEScan->setWindow(449);
   pBLEScan->setActiveScan(true);
   pBLEScan->start(5, false);
-//char auth[] = "_GGwAlEIJEWCD9TCTyPd1SupGFJfkS7I"
-/*;
-//String s;
-// Your WiFi credentials.
-// Set password to "" for open networks.
-char ssid[] = "narzo 50A";
-char pass[] = "rimli123";*/
+
   Blynk.begin(auth, ssid, pass);
   // You can also specify server:
   //Blynk.begin(auth, ssid, pass, "blynk.cloud", 80);
@@ -223,7 +217,5 @@ void loop(){
   //delay(1000)
   Blynk.run();
   timer.run();
-  // You can inject your own code or combine it with other sketches.
-  // Check other examples on how to communicate with Blynk. Remember
-  // to avoid delay() function!
+  
 }
