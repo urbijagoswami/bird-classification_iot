@@ -133,30 +133,22 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
       myDevice = new BLEAdvertisedDevice(advertisedDevice);
     doConnect = true;
      doScan = true;
+    }
+  } 
+}; 
 
-    } // Found our server
-  } // onResult
-}; // MyAdvertisedDeviceCallbacks
 
-// This function is called every time the Virtual Pin 0 state changes
 
-// This function is called every time the device is connected to the Blynk.Cloud
-/*BLYNK_CONNECTED()
-{
-  // Change Web Link Button message to "Congratulations!"
-  Blynk.setProperty(V3, "offImageUrl", "https://static-image.nyc3.cdn.digitaloceanspaces.com/general/fte/congratulations.png");
-  Blynk.setProperty(V3, "onImageUrl",  "https://static-image.nyc3.cdn.digitaloceanspaces.com/general/fte/congratulations_pressed.png");
-  Blynk.setProperty(V3, "url", "https://docs.blynk.io/en/getting-started/what-do-i-need-to-blynk/how-quickstart-device-was-made");
-}*/
-
-// This function sends Arduino's uptime every second to Virtual Pin 2.
 void t()
 {
   // This function describes what will happen with each timer tick
-  // e.g. writing sensor value to datastream V5
+  
   Blynk.virtualWrite(V3, s);  }
+
   BLYNK_CONNECTED()
-  {Blynk.syncVirtual(V3);
+  {
+    Blynk.syncVirtual(V3);
+    //updates Virtual Pin V3 with new values from server
 }
 
 void setup()
@@ -189,8 +181,7 @@ void loop(){
 
  
 
-  // If we are connected to a peer BLE Server, update the characteristic each time we are reached
-  // with the current time since boot.
+  
  
   if (doConnect == true) {
     if (connectToServer()) {
@@ -201,8 +192,7 @@ void loop(){
     doConnect = false;
   }
 
-  // If we are connected to a peer BLE Server, update the characteristic each time we are reached
-  // with the current time since boot.
+  
   if (connected) {
     String newValue = "Time since boot: " + String(millis()/1000);
  //  Serial.println("Setting new characteristic value to \"" + newValue + "\"");
@@ -214,8 +204,9 @@ void loop(){
   }
   
   delay(1000);
-  //delay(1000)
+  
   Blynk.run();
   timer.run();
   
 }
+//Note: the transferring of data through BLE connection takes some time normally (around 2 mins)
