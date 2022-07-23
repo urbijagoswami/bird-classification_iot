@@ -40,7 +40,7 @@
 
 /* Includes ---------------------------------------------------------------- */
 #include <PDM.h>
-#include <housesparrow_inferencing.h>
+#include <bird_sound_classifier_inferencing.h>
 
 #include <ArduinoBLE.h>
 #include <BLEDevice.h>
@@ -59,7 +59,7 @@ String a;
 BLEService greetingService("4fafc201-1fb5-459e-8fcc-c5c9c331914b");  // User defined service
 
 BLEStringCharacteristic greetingCharacteristic("26c31bb7-a351-487e-84af-dbf155975756",  // standard 16-bit characteristic UUID
-    BLERead|BLENotify, 13); // remote clients will only be able to read this
+    BLERead|BLENotify, 13); // remote clients will only be able to read and get notified this
 
 
 /**
@@ -85,7 +85,7 @@ while (!Serial);
   BLE.setAdvertisedService(greetingService); // Advertise service
   greetingService.addCharacteristic(greetingCharacteristic); // Add characteristic to service
   BLE.addService(greetingService); // Add service
-  //greetingCharacteristic.setValue(greeting); // Set greeting string
+ 
 
   BLE.advertise();  // Start advertising
   Serial.print("Peripheral device MAC: ");
@@ -132,7 +132,8 @@ void loop()
    Serial.print("Disconnected from central MAC: ");
    Serial.println(central.address()); }
 }
-   void readValues(){ //ei_printf("Starting inferencing in 2 seconds...\n");
+   void readValues(){ 
+       //ei_printf("Starting inferencing in 2 seconds...\n");
 
     delay(2000);
 
@@ -165,7 +166,9 @@ void loop()
     for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
         ei_printf("    %s: %.5f\n", result.classification[ix].label, result.classification[ix].value);
         if(result.classification[ix].value>0.8)
+            
         a=String(result.classification[ix].label);
+        //passing the label with a classification probabilty more than 0.8 to string a
     }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
    // ei_printf("    anomaly score: %.3f\n", result.anomaly);
